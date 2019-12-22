@@ -5,8 +5,8 @@ import {dijkstra, getNodesInShortestPathOrder} from '../algorithms/dijkstra';
 
 import './PathfindingVisualizer.css';
 
-const START_NODE_ROW = 10;
-const START_NODE_COL = 15;
+const START_NODE_ROW = 1;
+const START_NODE_COL = 1;
 const FINISH_NODE_ROW = 10;
 const FINISH_NODE_COL = 35;
 
@@ -74,6 +74,41 @@ export default class PathfindingVisualizer extends Component {
     this.animateDijkstra(visitedNodesInOrder, nodesInShortestPathOrder);
   }
 
+  clearBoard(){
+      const grid = getInitialGrid();
+      this.setState({grid});
+    // clear the visualization of the alg
+  }
+
+    startNodeMethodActive = false;
+    endNodeMethodActive = false;
+  changeStartNode(){
+    if(!this.endNodeMethodActive){
+     alert("Choose your next start node, the board will update once you are done.");
+     this.startNodeMethodActive = true;
+
+
+     const START_NODE_ROW = 10;
+     const START_NODE_COL = 15;
+
+    } else {
+      alert("Change end node method is active choose your end node first.");
+    }
+    }
+
+  changeEndNode(){
+    if(!this.startNodeMethodActive){
+      alert("Choose your next end node, the board will update once you are done.");
+      this.endNodeMethodActive = true;
+
+      const FINISH_NODE_ROW = 10;
+      const FINISH_NODE_COL = 35;
+
+  } else {
+      alert("Change start node method is active choose your start node first.");
+    }
+  }
+
   render() {
     const {grid, mouseIsPressed} = this.state;
 
@@ -82,6 +117,13 @@ export default class PathfindingVisualizer extends Component {
         <button onClick={() => this.visualizeDijkstra()}>
           Visualize Dijkstra's Algorithm
         </button>
+        <button onClick={() => this.clearBoard()}>
+          Clear Screen
+          </button>
+          <button onClick={() => this.changeStartNode()}>
+          Change Start Node</button>
+          <button onClick={() => this.changeEndNode()}>
+            Change End Node</button>
         <div className="grid">
           {grid.map((row, rowIdx) => {
             return (
